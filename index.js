@@ -6,31 +6,63 @@ let seleccionarProducto = parseInt(prompt('Hola ' + nombre + ', ingresa el numer
 
 let comprar = true
 let decicion
+let productos = []
+let carrito = []
+
+const terciopelo = {
+    nombre: 'terciopelo',
+    precio: 1250
+}
+productos.push(terciopelo)
+
+const plumeti ={
+    nombre: 'plumeti',
+    precio: 950
+}
+productos.push(plumeti)
+
+const encaje = {
+    nombre: 'encaje',
+    precio: 950
+}
+productos.push(encaje)
+
+const encajeAro = {
+    nombre: 'encajeAro',
+    precio: 1000
+}
+productos.push(encajeAro)
+
 
 while (comprar === true) {
     if (seleccionarProducto === 1) {
-        total = total + 1250
-    }else if (seleccionarProducto ===2) {
-        total = total + 950
-    }else if (seleccionarProducto ===3) {
-        total = total + 950
-    }else if (seleccionarProducto === 4) {
-        total = total + 1000
-    }else{
+        carrito.push(productos[0])
+    }
+    else if (seleccionarProducto === 2) {
+        carrito.push(productos[1])
+    }
+    else if (seleccionarProducto === 3) {
+        carrito.push(productos[2])
+    }
+    else if (seleccionarProducto === 4) {
+        carrito.push(productos[3])
+    }
+    else {
         seleccionarProducto = parseInt(prompt('El numero ingresado no pertenece a un producto existente, por favor ingresa nuevamente el numero del producto que desea agregar al carrito: 1.Conjunto de terciopelo  2.Conjunto de plumeti  3.Conjunto de encaje  4.Conjunto de encaje con aro'))
         continue
     }
-
+    
     decicion = parseInt(prompt('Deseas agregar mas productos al carrito? 1.Si  2.no'))
     if (decicion === 1) {
         seleccionarProducto = parseInt(prompt('ingresa el numero del producto que desea agregar al carrito: 1.Conjunto de terciopelo  2.Conjunto de plumeti  3.Conjunto de encaje  4.Conjunto de encaje con aro'))
     }else if (decicion ===2) {
         comprar = false
     }
+}
 
 
-
-
+for (let i = 0; i < carrito.length; i++) {
+    total = total + carrito[i].precio
 }
 
 alert('Pagando con tarjeta de credito, debito o mercado pago el valor total es de $'+total)
