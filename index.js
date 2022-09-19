@@ -1,19 +1,6 @@
-let nombre = prompt('Ingresa tu nombre')
-
-let total = 0
-
-let seleccionarProducto = parseInt(prompt('Hola ' + nombre + ', ingresa el numero del producto que deseas agregar al carrito: 1.Conjunto de terciopelo  2.Conjunto de plumeti  3.Conjunto de encaje  4.Conjunto de encaje con aro'))
-
-let comprar = true
-let decicion
 let productos = []
-let carrito = []
-
-const terciopelo = {
-    nombre: 'terciopelo',
-    precio: 1250
-}
-productos.push(terciopelo)
+let carrito =[]
+const selecTag = document.getElementById('lista')
 
 const plumeti ={
     nombre: 'plumeti',
@@ -27,53 +14,53 @@ const encaje = {
 }
 productos.push(encaje)
 
+const terciopelo = {
+    nombre: 'terciopelo',
+    precio: 1250
+}
+productos.push(terciopelo)
+
 const encajeAro = {
     nombre: 'encajeAro',
     precio: 1000
 }
 productos.push(encajeAro)
 
+console.log(productos);
 
-while (comprar === true) {
-    if (seleccionarProducto === 1) {
-        carrito.push(productos[0])
-    }
-    else if (seleccionarProducto === 2) {
-        carrito.push(productos[1])
-    }
-    else if (seleccionarProducto === 3) {
-        carrito.push(productos[2])
-    }
-    else if (seleccionarProducto === 4) {
-        carrito.push(productos[3])
-    }
-    else {
-        seleccionarProducto = parseInt(prompt('El numero ingresado no pertenece a un producto existente, por favor ingresa nuevamente el numero del producto que desea agregar al carrito: 1.Conjunto de terciopelo  2.Conjunto de plumeti  3.Conjunto de encaje  4.Conjunto de encaje con aro'))
-        continue
-    }
-    
-    decicion = parseInt(prompt('Deseas agregar mas productos al carrito? 1.Si  2.no'))
-    if (decicion === 1) {
-        seleccionarProducto = parseInt(prompt('ingresa el numero del producto que desea agregar al carrito: 1.Conjunto de terciopelo  2.Conjunto de plumeti  3.Conjunto de encaje  4.Conjunto de encaje con aro'))
-    }else if (decicion ===2) {
-        comprar = false
-    }
+productos.forEach(producto=>{
+    const option = document.createElement('option')
+    option.innerText = `${producto.nombre}: ${producto.precio}$`
+    selecTag.append(option)
+})
+
+const boton = document.createElement('button')
+boton.innerText = 'Agregar producto'
+document.body.append(boton)
+
+const boton2 = document.createElement('button')
+boton2.innerText = 'Terminar compra'
+document.body.append(boton2)
+
+
+
+boton.onclick = ()=>{
+    const productoSeleccionado = productos[selecTag.selectedIndex]
+    carrito.push(productoSeleccionado)
 }
 
+boton2.onclick = ()=>{
+    let totalCompra = 0
+    carrito.forEach((prod)=>{
+        totalCompra = totalCompra + prod.precio
+    })
 
-for (let i = 0; i < carrito.length; i++) {
-    total = total + carrito[i].precio
+    let pagoEfectivo = totalCompra - totalCompra*(10/100)
+
+    const parrafoTotal = document.createElement('p')
+    parrafoTotal.innerText = `Pagando con tarjeta de credito, debito o mercado pago el valor total es de $${totalCompra}, y pagando con transferencia o efectivo el valor total es de $${pagoEfectivo}!!`
+    document.body.append(parrafoTotal)
+ 
+
 }
 
-alert('Pagando con tarjeta de credito, debito o mercado pago el valor total es de $'+total)
-
-function calcularPagoEfectivo(valor) {
-    let pagoEfectivo = total*(10/100)
-    valor = valor - pagoEfectivo
-    return valor
-}
-let pagoEfectivo = calcularPagoEfectivo(total)
-
-alert('Pagando con transferencia o efectivo el valor total es de $'+pagoEfectivo+'!!')
-
-alert('Muchas gracias por comprar nuestros productos. Espramos que vuelvas pronto!')
